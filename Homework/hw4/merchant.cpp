@@ -4,15 +4,24 @@
 #include <iomanip>
 #define size 10
 
-bool flag = false;
+bool flag = false; // Used to avoid the usage of the haggle function more than once
 
+/* 
+    Constructor:
+    Assigns antique array, quantity array, and set merchant's revenue to 0
+*/
 Merchant::Merchant(Antique a[], int q[])
 {
     revenue = 0;
 }
 
-void Merchant::haggle()
+/*
+    Haggle:
+    Sets every item on the menu to 10% off (Can only be used once)
+*/
+void Merchant::haggle(Antique a[])
 {
+    float discount;
     if(flag)
     {
         cout << "Sorry, you have already haggled" << endl;
@@ -21,32 +30,52 @@ void Merchant::haggle()
 
     for(int i = 0; i < size; i++)
     {
-        antiques[i].setPrice(antiques[i].getPrice() * 0.10);
+        discount = a[i].getPrice() - (a[i].getPrice() * 0.10);
+        a[i].setPrice(discount);
     }
     cout << "You have successfuly haggled and everything is 10% off" << endl;
     flag = true;
     return;
 }
 
-void Merchant::printMenu()
+/*
+    Print Menu:
+    Prints information regarding antique number, name, and price
+*/
+void Merchant::printMenu(Antique a[])
 {
     for(int i = 0; i < size; i++)
     {
         cout << i+1 << ") "; 
-        antiques[i].toString();
+        a[i].toString();
     }
+    cout << endl;
 }
 
+/*
+    Add To Revenue:
+    Increases revenue to the amount of the sale made
+*/
 void Merchant::addRevenue(float rev)
 {
     revenue += rev;
 }
 
+/*
+    Get Revenue:
+    Returns revenue amount
+*/
 float Merchant::getRevenue()
 {
     return revenue;
 }
 
+/*
+    Purchase Antique:
+    Allows user to choose an antique to buy.
+    Purchase is finalized if and only if said antique is in stock and the user has enough money in their budget
+    Details about the sale is appended to log2.txt
+*/
 void Merchant::selectAntique(Antique a[], int q[], float &budget)
 {   
     ofstream receipt;
@@ -83,12 +112,17 @@ void Merchant::selectAntique(Antique a[], int q[], float &budget)
     }
 }
 
+/*
+    Leave:
+    Appends the merchant's total revenue and remaining budget to log2.txt
+    Terminates program after execution (in main)
+*/
 void Merchant::leave(float _budget)
 {
     ofstream output;
     output.open("log2.txt", ios_base::app);
 
-    cout << "Hehehehe, thank you" << endl;
+    cout << "Thank you for shopping!" << endl;
     output << "\nTotal revenue: $" << fixed << setprecision(2) << getRevenue() << endl;
-    output << "Remaining budget: $" << fixed << setprecision(2) << _budget << endl;
+    output << "Remaining budget: $" << fixed << setprecision(2) << _budget << "\n" << endl;
 }

@@ -1,5 +1,17 @@
+/*  
+    Name: Khalyl Smith
+    UH ID: 1894480
+    Date: March 10th, 2020
+
+    Overview: You have been greeted by a traveling sales merchant who is selling some wares. 
+    You will have access to view the items he is selling and will be able to purchase his wares according to his prices.
+
+    Simulates an antique shop using classes and objects
+*/
+
 #include "merchant.h"
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #define size 10
@@ -46,14 +58,15 @@ int main()
     
     // Set user's budget
     float budget;
-    cout << "Enter your budget: \n> ";
+    cout << "Enter your budget: \n$";
     cin >> budget;
+    cout << endl;
 
     // Menu selection and execution
     int selection;
     while(selection != 4)
     {
-        cout << "Make a selection:" << endl;
+        cout << "Make a selection (You have $" << fixed << setprecision(2) << budget << "):" << endl;
         cout << "1 - Haggle" << endl;
         cout << "2 - View menu" << endl;
         cout << "3 - Select an antique" << endl;
@@ -64,27 +77,27 @@ int main()
 
         switch(selection)
         {
-            case 1:
+            case 1: // Haggle (10% off all items)
             {
-                merchant.haggle();
+                merchant.haggle(antiques);
                 break;
             }
-            case 2:
+            case 2: // View antique menu
             {
-                merchant.printMenu();
+                merchant.printMenu(antiques);
                 break;
             }
-            case 3:
+            case 3: // Select an antique to purchase
             {
                 merchant.selectAntique(antiques, quant, budget);
                 break;
             }
-            case 4:
+            case 4: // Leave shop
             {
                 merchant.leave(budget);
                 break;
             }
-            default:
+            default: // Default action
             {
                 cout << "Invalid option." << endl;
                 break;
@@ -92,5 +105,5 @@ int main()
         }
     }
 
-    return 0;
+    return 0; 
 }

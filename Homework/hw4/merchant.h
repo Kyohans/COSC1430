@@ -11,8 +11,8 @@ class Merchant
         float revenue;
     public:
         Merchant(Antique a[], int q[]);
-        void haggle();
-        void printMenu();
+        void haggle(Antique a[]);
+        void printMenu(Antique a[]);
         void addRevenue(float rev);
         float getRevenue();
         void selectAntique(Antique a[], int q[], float &budget);
