@@ -1,5 +1,6 @@
 #include "antique.h"
 #include <iomanip>
+#include <sstream>
 #include <iostream>
 using namespace std;
 
@@ -53,7 +54,9 @@ float Antique::getPrice()
     toString:
     Prints information about the antique such as the name and how much it costs
 */
-void Antique::toString()
+const string Antique::toString()
 {
-    cout << getName() << ": $" << fixed << setprecision(2) << price << endl; 
+    ostringstream output;
+    output << getName() << ": $" << fixed << setprecision(2) << getPrice() << endl; 
+    return output.str();
 }

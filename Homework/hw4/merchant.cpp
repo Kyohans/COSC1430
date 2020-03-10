@@ -33,7 +33,7 @@ void Merchant::haggle(Antique a[])
         discount = a[i].getPrice() - (a[i].getPrice() * 0.10);
         a[i].setPrice(discount);
     }
-    cout << "You have successfuly haggled and everything is 10% off" << endl;
+    cout << "You have successfully haggled and everything is 10% off" << endl;
     flag = true;
     return;
 }
@@ -46,8 +46,7 @@ void Merchant::printMenu(Antique a[])
 {
     for(int i = 0; i < size; i++)
     {
-        cout << i+1 << ") "; 
-        a[i].toString();
+        cout << i+1 << ") " << a[i].toString(); 
     }
     cout << endl;
 }

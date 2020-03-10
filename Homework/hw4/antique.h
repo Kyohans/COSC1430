@@ -2,6 +2,7 @@
 #define ANTIQUE_H
 
 #include <string>
+#include <sstream>
 using namespace std;
 
 class Antique
@@ -15,7 +16,7 @@ class Antique
         void setPrice(float p);
         const string getName();
         float getPrice();
-        void toString();
+        const string toString();
 };
 
 #endif
