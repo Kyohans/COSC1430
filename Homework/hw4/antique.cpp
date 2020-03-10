@@ -29,7 +29,7 @@ float Antique::getPrice()
     return price;
 }
 
-string Antique::toString()
+void Antique::toString()
 {
-    return " ";
+    cout << getName() << ": $" << setprecision(2) << price << endl; 
 }

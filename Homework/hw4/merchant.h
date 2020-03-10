@@ -13,8 +13,10 @@ class Merchant
         Merchant(Antique a[], int q[]);
         void haggle();
         void printMenu();
-        void selectAntique(Antique a[], int q[], float budget);
-        void leave();
+        void addRevenue(float rev);
+        float getRevenue();
+        void selectAntique(Antique a[], int q[], float &budget);
+        void leave(float _budget);
 };
 
 #endif

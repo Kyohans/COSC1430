@@ -15,7 +15,7 @@ class Antique
         void setPrice(float p);
         const string getName();
         float getPrice();
-        string toString();
+        void toString();
 };
 
 #endif
