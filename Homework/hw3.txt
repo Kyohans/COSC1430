@@ -1,0 +1,15 @@
+Willow
+white
+10
+Eddie
+brown
+50
+Carrot
+grey
+99
+Maxie
+purple
+100
+Furry
+green
+45
