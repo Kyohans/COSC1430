@@ -1,8 +1,0 @@
-ROSTER: 7
-Kitten 1 -- Name: Willow, Color: white, Score: 10
-Kitten 2 -- Name: Eddie, Color: brown, Score: 50
-Kitten 3 -- Name: Carrot, Color: grey, Score: 99
-Kitten 4 -- Name: Maxie, Color: grey, Score: 500
-Kitten 5 -- Name: Furry, Color: green, Score: 45
-Kitten 6 -- Name: Garfield, Color: Orange, Score: 1000
-Kitten 7 -- Name: Jackie, Color: Black, Score: 200
