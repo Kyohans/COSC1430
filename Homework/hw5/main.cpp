@@ -1,138 +1,56 @@
-/*  
-    Name: Khalyl Smith
-    UH ID: 1894480
-    Date: March 10th, 2020
-
-    Overview: You have been greeted by a traveling sales merchant who is selling some wares. 
-    You will have access to view the items he is selling and will be able to purchase his wares according to his prices.
-
-    Simulates an antique shop using classes and objects
-*/
-
-#include "merchant.h"
 #include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <string>
-#define size 10
-
+#include "MerchantGuild.h"
+#include "merchant.h"
+#include "antique.h"
 using namespace std;
 
-int main()
-{
-    Antique t1("Car", 10);
-    Antique t2("Bowl", 5);
+int main() {
+   cout << "KEY: " << "True is: " << true << "  False is: " << false << endl << endl;
+   
+   // antique tests
+	Antique a1, a2;
 
-    if(t1 == t2)
-    {
-        cout << "Equal" << endl;
-    }
-    else
-    {
-        cout << "Not equal" << endl;
-    }
+	a1.setName("fork");
+	a1.setPrice(3.25);
+	a2.setName("knife");
+	a2.setPrice(2.50);
+	cout << "antique test" << endl;
+	Antique a3 = a1 + a2;
 
-    Antique t3(t1);
-    if(t3 == t1)
-    {
-        cout << "Equal" << endl;
-    }
-    else
-    {
-        cout << "Not equal" << endl;
-    }
+	cout << a3.toString();
+	cout << bool(a1 == a2) << " : Ans=0" << endl;
+	cout << bool(a1 == a1) << " : Ans=1" << endl;
+	
     
-    cout << "This is t3: " << t3.getName() << " " << t3.getPrice() << endl;
+	// merchant tests
+	Merchant m1(1.2), m2(2.5);
+	cout << "merchant test" << endl;
+	m1.addAntique(a1, 2);
+	m1.addAntique(a2, 5);
+	m2.addAntique(a3, 3);
 
-    cout << "Adding t1 and t2" << endl;
-    Antique t4 = t1 + t2;
-    cout << t4.getName() << endl;
-    cout << fixed << setprecision(2) << t4.getPrice() << endl;
-    
-    Antique antiques[size];     // Array of Antique objects with size 10
-    int quant[size];            // Antique quantity array that corresponds with the antiques array
+	cout << bool(m1 == m2) << " : Ans=0" << endl;
+	cout << bool(m1 == m1) << " : Ans=1" << endl;
 
-    // Creates I/O File
-    string filename;
-    fstream file;
-    cout << "Input filename: \n> ";
-    cin >> filename;
+	Merchant m3(m1);
 
-    // Open new file. Terminates program if file is not found
-    file.open(filename);
-    if(file.fail())
-    {
-        cout << "File not found" << endl;
-        return 0;
-    }
+	cout << bool(m1 == m3) << " : Ans=1" << endl;
+	
+	
+	//merchant guild tests
+	MerchantGuild mg1;
+	cout << "merchant guild tests" << endl;
 
-    string setter;  // Used to acquire data from file
-    for(int i = 0; i < size; i++)
-    {
-        // Set antiques name
-        getline(file, setter, ',');
-        antiques[i].setName(setter);
+	mg1.addMember(m1);
+	
+	Merchant* tmp = mg1.getMembers();
+	cout << bool(tmp[0] == m1) << " : Ans=1" << endl;
+	
+	mg1.addMember(m2);
+	
+	tmp = mg1.getMembers();
+	cout << bool(tmp[0] == m1 && tmp[1] == m2) << " : Ans=1" << endl;
 
-        // Set antiques price
-        getline(file, setter, ',');
-        antiques[i].setPrice(atof(setter.c_str()));
+   return 0;
 
-        // Set antiques quantity
-        getline(file, setter);
-        quant[i] = stoi(setter);
-    }
-
-    // Creates object from merchant class using antiques and quantity array
-    Merchant merchant(antiques, quant);
-    
-    // Set user's budget
-    float budget;
-    cout << "Enter your budget: \n$";
-    cin >> budget;
-    cout << endl;
-
-    // Menu selection and execution
-    int selection;
-    while(selection != 4)
-    {
-        cout << "Make a selection (You have $" << fixed << setprecision(2) << budget << "):" << endl;
-        cout << "1 - Haggle" << endl;
-        cout << "2 - View menu" << endl;
-        cout << "3 - Select an antique" << endl;
-        cout << "4 - Leave" << endl;
-        cout << "> ";
-        cin >> selection;
-        cout << endl;
-
-        switch(selection)
-        {
-            case 1: // Haggle (10% off all items)
-            {
-                merchant.haggle(antiques);
-                break;
-            }
-            case 2: // View antique menu
-            {
-                merchant.printMenu(antiques);
-                break;
-            }
-            case 3: // Select an antique to purchase
-            {
-                merchant.selectAntique(antiques, quant, budget);
-                break;
-            }
-            case 4: // Leave shop
-            {
-                merchant.leave(budget);
-                break;
-            }
-            default: // Default action
-            {
-                cout << "Invalid option." << endl;
-                break;
-            }
-        }
-    }
-
-    return 0; 
 }

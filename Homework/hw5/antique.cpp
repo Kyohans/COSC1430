@@ -38,6 +38,7 @@ Antique Antique::operator+(Antique& rhs)
     newName << newAntique.name << " and " << rhs.name;
     newAntique.name = newName.str();
     newAntique.price = newAntique.price + rhs.price;
+    return newAntique;
 }
 
 /*
@@ -84,7 +85,7 @@ const string Antique::getName()
     Get Price:
     Retrieves the price of an antique
 */
-float Antique::getPrice()
+const float Antique::getPrice()
 {
     return price;
 }

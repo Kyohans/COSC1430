@@ -1,22 +1,25 @@
+#include "antique.h"
+
+using namespace std;
+
 #ifndef MERCHANT_H
 #define MERCHANT_H
-
-#include "antique.h"
 
 class Merchant
 {
     private:
-        Antique antiques[10];
-        int quantities[10];
+        Antique *antiques = nullptr;
+        int *quantity = nullptr;
+        int numAnt = 0;
         float revenue;
     public:
-        Merchant(Antique a[], int q[]);
-        void haggle(Antique a[]);
-        void printMenu(Antique a[]);
-        void addRevenue(float rev);
-        float getRevenue();
-        void selectAntique(Antique a[], int q[], float &budget);
-        void leave(float _budget);
+        Merchant();
+        Merchant(float rev);
+        Merchant(const Merchant &copy);
+        Merchant &operator=(const Merchant &rhs);
+        bool operator==(const Merchant &rhs);
+        void addAntique(const Antique &a, int q);
+        ~Merchant();
 };
 
 #endif

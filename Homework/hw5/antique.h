@@ -17,8 +17,8 @@ class Antique
         bool operator==(const Antique& rhs);
         void setName(string n);
         void setPrice(float p);
+        const float getPrice();
         const string getName();
-        float getPrice();
         const string toString();
 };
 
