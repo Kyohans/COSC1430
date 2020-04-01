@@ -7,10 +7,10 @@
 MusicLibrary::MusicLibrary(int maxsongs)
 {
     maxSongs = maxsongs;
-    mySongs = new Song[maxSongs];
-    playList = &mySongs;
     numSongs = 0;
     numSongsPlayList = 0;
+    mySongs = new Song[maxSongs];
+    playList = new Song*[maxSongs];
 }
 MusicLibrary::MusicLibrary(MusicLibrary &other)
 {
@@ -53,7 +53,6 @@ bool MusicLibrary::addSong(string title, string artist, string album, int year, 
     mySongs[numSongs].setYear(year);
     mySongs[numSongs].setPlayTime(time);
     numSongs++;
-    cout << numSongs << " Added " << mySongs[numSongs].getTitle() << endl;
     return true;
 }
 
@@ -72,50 +71,52 @@ bool MusicLibrary::addSong(Song &song)
 
 void MusicLibrary::readSongsFromFile(string filename)
 {
-
     ifstream input;
     input.open(filename);
+    if(input.fail())
+    {
+        cout << "ERROR: No such file!" << endl;
+        exit(0);
+    }
     bool cont = true;
 
-    if (input.is_open())
+    string line;
+    while (getline(input, line) && cont)
     {
-        string line;
-        while (getline(input, line) && cont)
-        {
-            string title, artist, album;
-            string s_year, s_time;
-            int year;
-            int time;
-            istringstream inSS(line);
+        string title, artist, album;
+        string s_year, s_time;
+        int year;
+        int time;
+        istringstream inSS(line);
 
-            getline(inSS, title, ',');
-            getline(inSS, artist, ',');
-            getline(inSS, album, ',');
-            getline(inSS, s_year, ',');
-            getline(inSS, s_time);
+        getline(inSS, title, ',');
+        getline(inSS, artist, ',');
+        getline(inSS, album, ',');
+        getline(inSS, s_year, ',');
+        getline(inSS, s_time);
 
-            year = stoi(s_year);
-            time = stoi(s_time);
-            cout << title << endl;
-            cont = addSong(title, artist, album, year, time);
-        };
+        year = stoi(s_year);
+        time = stoi(s_time);
+        cont = addSong(title, artist, album, year, time);
     }
-    else
-    {
-        cout << "could not open file " << filename << endl;
-    }
+    input.close();
 }
 
 void MusicLibrary::playRandom()
 {
     int i = 0;
     int j = numSongs - 1;
-    while(i > j)
+    while(i < j)
     {
         mySongs[i].Play();
-        mySongs[j - i].Play();
+        mySongs[j].Play();
         i++;
         j--;
+
+        if(i == j)
+        {
+            mySongs[i].Play();
+        }
     }
 }
 
@@ -133,8 +134,8 @@ bool MusicLibrary::addSongToPlayList(int pos)
         return false;
     }
 
-    numSongsPlayList = numSongsPlayList + 1;
-    *playList[numSongsPlayList] = mySongs[pos];
+    playList[numSongsPlayList] = &mySongs[pos];
+    numSongsPlayList++;
     return true;
 }
 
