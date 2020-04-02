@@ -17,7 +17,7 @@ private:
 
 public:
     MusicLibrary(int maxsongs);
-    MusicLibrary(MusicLibrary &other);
+    MusicLibrary(const MusicLibrary &other);
     ~MusicLibrary();
 
     int getnumSongs();

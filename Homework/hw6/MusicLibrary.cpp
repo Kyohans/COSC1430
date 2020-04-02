@@ -12,13 +12,20 @@ MusicLibrary::MusicLibrary(int maxsongs)
     mySongs = new Song[maxSongs];
     playList = new Song*[maxSongs];
 }
-MusicLibrary::MusicLibrary(MusicLibrary &other)
+
+MusicLibrary::MusicLibrary(const MusicLibrary &other)
 {
     maxSongs = other.maxSongs;
     numSongs = other.numSongs;
-    mySongs = other.mySongs;
     numSongsPlayList = other.numSongsPlayList;
-    playList = other.playList;
+    mySongs = new Song[maxSongs];
+    playList = new Song *[maxSongs];
+    
+    for(int i = 0; i < numSongs; i++)
+    {
+        mySongs[i] = other.mySongs[i];
+        playList[i] = &mySongs[i];
+    }
 }
 
 MusicLibrary::~MusicLibrary()
