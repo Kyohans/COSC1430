@@ -31,6 +31,7 @@ public:
     void SetHealth(int health);
 
     //other functions
+    //virtual ~Character();
     virtual void Print();
     virtual void Attack(Character *target) = 0;
 };

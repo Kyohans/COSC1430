@@ -51,6 +51,14 @@ void Game::AddCharacter(Character *c)
 
 void Game::NextTurn()
 {
+    for(int i = 0; i < num_of_characters; i++)
+    {
+        if(players[i]->getHealth() <= 0)
+        {
+            cout << players[i]->getName() << " has already been eliminated" << endl;
+            return;
+        }
+    }
     if (num_of_characters != 2)
     {
         cout << "Need more players!" << endl;
@@ -82,3 +90,9 @@ void Game::Print()
             players[i]->Print();
     }
 }
+/*
+Game::~Game()
+{
+    delete[] players;
+}
+*/
