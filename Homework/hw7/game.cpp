@@ -22,16 +22,29 @@ void Game::RemoveCharacter(int index)
         return;
     }
 
+    Character *temp[2];
+    if(index == 0) {
+        temp[0] = players[1];
+        temp[1] = nullptr;
+    } else {
+        temp[0] = players[0];
+        temp[1] = nullptr;
+    }
+
     if (players[index] != nullptr)
     {
         cout << players[index]->getName() << " has been removed from the game." << endl;
-        delete players[index];
+        for(int i = 0; i < num_of_characters; i++)
+        {
+            players[i] = nullptr;
+        }
     }
     else
     {
         cout << "Character has already been removed" << endl;
     }
 
+    players[0] = temp[0];
     num_of_characters--;
 }
 
@@ -56,9 +69,16 @@ void Game::NextTurn()
         if(players[i]->getHealth() <= 0)
         {
             cout << players[i]->getName() << " has already been eliminated" << endl;
+            if(i == 0)
+            {
+                cout << players[i+1]->getName() << " wins!" << endl;
+            } else {
+                cout << players[i-1]->getName() << " wins!" << endl;
+            }
             return;
         }
     }
+
     if (num_of_characters != 2)
     {
         cout << "Need more players!" << endl;
@@ -90,9 +110,3 @@ void Game::Print()
             players[i]->Print();
     }
 }
-/*
-Game::~Game()
-{
-    delete[] players;
-}
-*/

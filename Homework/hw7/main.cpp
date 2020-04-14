@@ -96,11 +96,9 @@ int main()
             break;
         case 3:
             exit(0);
-        case 4:
-            game.RemoveCharacter(1);
-            break;
         default:
             cout << "Invalid Option!" << endl;
+            break;
         }
         cout << endl;
     } while (option != 3);

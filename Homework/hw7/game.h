@@ -17,7 +17,6 @@ private:
 
 public:
     Game();
-    //virtual ~Game();
     void RemoveCharacter(int index);
     void AddCharacter(Character *c);
     void NextTurn();
