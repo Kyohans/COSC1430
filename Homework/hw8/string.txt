@@ -1,0 +1,5 @@
+Tree
+Rock
+River
+Cave
+Treasure
